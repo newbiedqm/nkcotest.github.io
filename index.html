@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>南开大学室内乐团（NKCO）</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Serif SC', serif;
+            line-height: 1.6;
+            color: #333;
+            scroll-behavior: smooth;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #1c2331;
+            color: #fff;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #ffd700;
+        }
+        .hero {
+            background: url('/api/placeholder/1200/600') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            position: relative;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        section {
+            padding: 80px 0;
+        }
+        h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+        .about-content, .repertoire-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .about-text, .repertoire-text {
+            flex: 1;
+            padding-right: 40px;
+        }
+        .about-image, .repertoire-image {
+            flex: 1;
+        }
+        .about-image img, .repertoire-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .concerts {
+            background-color: #f9f9f9;
+        }
+        .concert-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .concert-item {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .concert-item:hover {
+            transform: translateY(-5px);
+        }
+        .concert-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .concert-info {
+            padding: 20px;
+        }
+        .concert-info h3 {
+            margin-top: 0;
+        }
+        footer {
+            background-color: #1c2331;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <ul>
+                <li><a href="#home">首页</a></li>
+                <li><a href="#about">关于我们</a></li>
+                <li><a href="#repertoire">曲目</a></li>
+                <li><a href="#concerts">音乐会</a></li>
+                <li><a href="#contact">联系我们</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>南开大学室内乐团</h1>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2>关于我们</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>南开大学室内乐团(Nankai University Student Chamber Orchestra, NKCO) 始于2021年，是由南开大学学生交响乐团成员发起成立的室内乐演奏团体，目前有来自南开大学各非艺术院系的50余位业余音乐爱好者加入。
+                        对于走过了三年冬夏的我们而言，接下来的时间更会坚定自己的初心，把音乐带来的感动、温暖和慰藉传递给更多人。</p>
+                    <p>乐团成员来自各个学院，涵盖弦乐、管乐、键盘乐等多个乐器种类。我们在专业指导下不断精进技艺，力求在每一次演出中呈现出最佳状态。</p>
+                    <p>室内乐团的前身——南开大学学生交响乐团（Nankai Student Symphony Orchestra, NKO)，成立于2001年10月。著名青年指挥金刚、王昊晨曾担任乐团常任指挥。二十年间，乐团曾在国家大剧院与学生合唱团共同举办专场音乐会，
+                        成为第一支在国家大剧院举行专场音乐会的国内高校艺术团；多次在全国大学生艺术展演比赛中获得优异成绩；多次成功举办校内专场音乐会。</p>
+                </div>
+                <div class="about-image">
+                    <img src="IMG_6303.jpg" alt="南开大学室内乐团成员合影">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="repertoire">
+        <div class="container">
+            <h2>经典曲目</h2>
+            <div class="repertoire-content">
+                <div class="repertoire-text">
+                    <p>我们的曲目涵盖巴洛克、古典、浪漫主义到现代的各个时期作品，包括：</p>
+                    <ul>
+                        <li>贝多芬：C大调第一交响曲</li>
+                        <li>勃拉姆斯：B大调钢琴三重奏 Op.8</li>
+                        <li>舒伯特：钢琴五重奏-鳟鱼</li>
+                        <li>圣桑：动物狂欢节<li>
+                    </ul>
+                </div>
+                <div class="repertoire-image">
+                    <img src="/api/placeholder/500/400" alt="乐团演奏场景">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="concerts" class="concerts">
+        <div class="container">
+            <h2>近期音乐会</h2>
+            <div class="concert-list">
+                <div class="concert-item">
+                    <img src="641.jpg" alt="三周年音乐会海报">
+                    <div class="concert-info">
+                        <h3>三周年音乐会</h3>
+                        <p>日期：2024年6月2日晚19：00</p>
+                        <p>地点：南开大学 田家炳音乐厅</p>
+                    </div>
+                </div>
+                <div class="concert-item">
+                    <img src="640.jpg" alt="夏至天开音乐会海报">
+                    <div class="concert-info">
+                        <h3>夏至天开-室内乐音乐会</h3>
+                        <p>日期：2024年5月11日晚19:30</p>
+                        <p>地点：天津大学北洋园校区 国家大型地震工程模拟研究设施仿真中心 茅以升报告厅</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2>联系我们</h2>
+            <p style="text-align: center;">邮箱：nkco@nankai.edu.cn</p>
+            <p style="text-align: center;">微信公众号：南开室内乐</p>
+            <p style="text-align: center;">Bilibili：南开室内乐NKCO</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 南开大学室内乐团（NKCO）. 保留所有权利。</p>
+        </div>
+    </footer>
+</body>
+</html>
