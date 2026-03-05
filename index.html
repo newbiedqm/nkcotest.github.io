@@ -45,7 +45,9 @@
             color: #ffd700;
         }
         .hero {
-            background: url('/api/placeholder/1200/600') no-repeat center center/cover;
+            background:
+                linear-gradient(180deg, rgba(18, 22, 30, 0.35), rgba(18, 22, 30, 0.5)),
+                url('assets/images/hero/hero-stage.jpg?v=img2025') no-repeat center 38% / cover;
             height: 100vh;
             display: flex;
             align-items: center;
@@ -54,19 +56,30 @@
             color: #fff;
             position: relative;
         }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(120% 85% at 50% 45%, rgba(0, 0, 0, 0) 56%, rgba(0, 0, 0, 0.45) 100%);
+            z-index: 1;
+        }
         .hero::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            inset: 0;
+            background: linear-gradient(
+                90deg,
+                rgba(18, 22, 30, 0.38) 0%,
+                rgba(18, 22, 30, 0.1) 18%,
+                rgba(18, 22, 30, 0.1) 82%,
+                rgba(18, 22, 30, 0.38) 100%
+            );
             z-index: 1;
         }
         .hero-content {
             position: relative;
             z-index: 2;
+            transform: translateY(-12vh);
         }
         .hero h1 {
             font-size: 4rem;
@@ -85,19 +98,19 @@
             font-size: 2.5rem;
             margin-bottom: 40px;
         }
-        .about-content, .repertoire-content {
+        .about-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        .about-text, .repertoire-text {
+        .about-text {
             flex: 1;
             padding-right: 40px;
         }
-        .about-image, .repertoire-image {
+        .about-image {
             flex: 1;
         }
-        .about-image img, .repertoire-image img {
+        .about-image img {
             max-width: 100%;
             height: auto;
             border-radius: 10px;
@@ -108,8 +121,21 @@
         }
         .concert-list {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 30px;
+        }
+        @media (max-width: 980px) {
+            .concert-list {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        @media (max-width: 680px) {
+            .concert-list {
+                grid-template-columns: 1fr;
+            }
+            .hero-content {
+                transform: translateY(-8vh);
+            }
         }
         .concert-item {
             background-color: #fff;
@@ -117,20 +143,34 @@
             overflow: hidden;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
         }
         .concert-item:hover {
             transform: translateY(-5px);
         }
         .concert-item img {
             width: 100%;
-            height: 200px;
+            aspect-ratio: 16 / 9;
             object-fit: cover;
+            display: block;
         }
         .concert-info {
             padding: 20px;
         }
         .concert-info h3 {
             margin-top: 0;
+        }
+        #contact a {
+            color: inherit;
+            text-decoration: none;
+        }
+        #contact a:hover,
+        #contact a:visited,
+        #contact a:active {
+            color: inherit;
+            text-decoration: none;
         }
         footer {
             background-color: #1c2331;
@@ -146,9 +186,8 @@
             <ul>
                 <li><a href="#home">首页</a></li>
                 <li><a href="#about">关于我们</a></li>
-                <li><a href="#repertoire">曲目</a></li>
                 <li><a href="#concerts">音乐会</a></li>
-                <li><a href="#contact">联系我们</a></li>
+                <li><a href="#contact">更多链接</a></li>
             </ul>
         </nav>
     </header>
@@ -164,34 +203,14 @@
             <h2>关于我们</h2>
             <div class="about-content">
                 <div class="about-text">
-                    <p>南开大学室内乐团(Nankai University Student Chamber Orchestra, NKCO) 始于2021年，是由南开大学学生交响乐团成员发起成立的室内乐演奏团体，目前有来自南开大学各非艺术院系的50余位业余音乐爱好者加入。
-                        对于走过了三年冬夏的我们而言，接下来的时间更会坚定自己的初心，把音乐带来的感动、温暖和慰藉传递给更多人。</p>
+                    <p>南开大学室内乐团(Nankai University Student Chamber Orchestra, NKCO) 始于2021年，是由南开大学学生交响乐团成员发起成立的室内乐演奏团体，目前有来自南开大学各非艺术院系的60余位业余音乐爱好者加入。
+                        对于走过了四年冬夏的我们而言，接下来的时间更会坚定自己的初心，把音乐带来的感动、温暖和慰藉传递给更多人。</p>
                     <p>乐团成员来自各个学院，涵盖弦乐、管乐、键盘乐等多个乐器种类。我们在专业指导下不断精进技艺，力求在每一次演出中呈现出最佳状态。</p>
                     <p>室内乐团的前身——南开大学学生交响乐团（Nankai Student Symphony Orchestra, NKO)，成立于2001年10月。著名青年指挥金刚、王昊晨曾担任乐团常任指挥。二十年间，乐团曾在国家大剧院与学生合唱团共同举办专场音乐会，
                         成为第一支在国家大剧院举行专场音乐会的国内高校艺术团；多次在全国大学生艺术展演比赛中获得优异成绩；多次成功举办校内专场音乐会。</p>
                 </div>
                 <div class="about-image">
-                    <img src="IMG_6303.jpg" alt="南开大学室内乐团成员合影">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="repertoire">
-        <div class="container">
-            <h2>经典曲目</h2>
-            <div class="repertoire-content">
-                <div class="repertoire-text">
-                    <p>我们的曲目涵盖巴洛克、古典、浪漫主义到现代的各个时期作品，包括：</p>
-                    <ul>
-                        <li>贝多芬：C大调第一交响曲</li>
-                        <li>勃拉姆斯：B大调第一钢琴三重奏</li>
-                        <li>舒伯特：钢琴五重奏-鳟鱼</li>
-                        <li>圣桑：动物狂欢节</li>
-                    </ul>
-                </div>
-                <div class="repertoire-image">
-                    <img src="/api/placeholder/500/400" alt="乐团演奏场景">
+                    <img src="assets/images/IMG_6303.jpg" alt="南开大学室内乐团成员合影">
                 </div>
             </div>
         </div>
@@ -200,34 +219,16 @@
     <section id="concerts" class="concerts">
         <div class="container">
             <h2>近期音乐会</h2>
-            <div class="concert-list">
-                <div class="concert-item">
-                    <img src="641.jpg" alt="三周年音乐会海报">
-                    <div class="concert-info">
-                        <h3>三周年音乐会</h3>
-                        <p>日期：2024年6月2日晚19：00</p>
-                        <p>地点：南开大学 田家炳音乐厅</p>
-                    </div>
-                </div>
-                <div class="concert-item">
-                    <img src="640.jpg" alt="夏至天开音乐会海报">
-                    <div class="concert-info">
-                        <h3>夏至天开-室内乐音乐会</h3>
-                        <p>日期：2024年5月11日晚19:30</p>
-                        <p>地点：天津大学北洋园校区 国家大型地震工程模拟研究设施仿真中心 茅以升报告厅</p>
-                    </div>
-                </div>
-                
-            </div>
+            <div class="concert-list" id="concert-list"></div>
         </div>
     </section>
 
     <section id="contact">
         <div class="container">
-            <h2>联系我们</h2>
-            <p style="text-align: center;">邮箱：nkco@nankai.edu.cn</p>
-            <p style="text-align: center;">微信公众号：南开室内乐</p>
-            <p style="text-align: center;">Bilibili：南开室内乐NKCO</p>
+            <h2>更多链接</h2>
+            <p style="text-align: center;">小红书：<a href="https://xhslink.com/m/1JUSPdrgT4d" target="_blank" rel="noopener noreferrer">@南开室内乐_NKCO</a></p>
+            <p style="text-align: center;">微信公众号：<a href="https://mp.weixin.qq.com/s/dVwpc30fUEE3Il5TdFCDLQ" target="_blank" rel="noopener noreferrer">南开室内乐</a></p>
+            <p style="text-align: center;">Bilibili：<a href="https://b23.tv/jBgLiVZ" target="_blank" rel="noopener noreferrer">南开室内乐_NKCO的个人空间</a></p>
         </div>
     </section>
 
@@ -236,5 +237,89 @@
             <p>&copy; 2024 南开大学室内乐团（NKCO）. 保留所有权利。</p>
         </div>
     </footer>
+    <script>
+        (function () {
+            var fallbackConcerts = [
+                {
+                    name: "三周年音乐会",
+                    date: "2024年6月2日",
+                    location: "南开大学 田家炳音乐厅",
+                    image: "assets/images/641.jpg",
+                    source_url: "https://mp.weixin.qq.com/s/z7CpjcfgzncmD0q-wDyJBw"
+                },
+                {
+                    name: "夏至天开-室内乐音乐会",
+                    date: "2024年5月11日",
+                    location: "天津大学北洋园校区 国家大型地震工程模拟研究设施仿真中心 茅以升报告厅",
+                    image: "assets/images/640.jpg",
+                    source_url: "https://mp.weixin.qq.com/s/lsWojZHqV-6LS1XUGPB9aQ"
+                }
+            ];
+
+            var concertList = document.getElementById("concert-list");
+            if (!concertList) {
+                return;
+            }
+
+            function createConcertCard(concert) {
+                var hasSourceUrl = Boolean(concert.source_url);
+                var item = document.createElement(hasSourceUrl ? "a" : "div");
+                item.className = "concert-item";
+                if (hasSourceUrl) {
+                    item.href = concert.source_url;
+                    item.target = "_blank";
+                    item.rel = "noopener noreferrer";
+                }
+
+                var image = document.createElement("img");
+                image.src = concert.image || "assets/images/640.jpg";
+                image.alt = (concert.name || "音乐会") + "海报";
+
+                var info = document.createElement("div");
+                info.className = "concert-info";
+
+                var title = document.createElement("h3");
+                title.textContent = String(concert.name || "音乐会").replace(/\bNKCO\s*(\d{4})/gi, "NKCO $1");
+
+                var date = document.createElement("p");
+                date.textContent = "日期：" + (concert.date || "详见公众号推文");
+
+                var location = document.createElement("p");
+                location.textContent = "地点：" + (concert.location || "详见公众号推文");
+
+                info.appendChild(title);
+                info.appendChild(date);
+                info.appendChild(location);
+                item.appendChild(image);
+                item.appendChild(info);
+                return item;
+            }
+
+            function renderConcerts(concerts) {
+                concertList.innerHTML = "";
+                concerts.forEach(function (concert) {
+                    concertList.appendChild(createConcertCard(concert));
+                });
+            }
+
+            fetch("data/concerts.json", { cache: "no-store" })
+                .then(function (response) {
+                    if (!response.ok) {
+                        throw new Error("Failed to load concerts.json");
+                    }
+                    return response.json();
+                })
+                .then(function (concerts) {
+                    if (!Array.isArray(concerts) || concerts.length === 0) {
+                        renderConcerts(fallbackConcerts);
+                        return;
+                    }
+                    renderConcerts(concerts);
+                })
+                .catch(function () {
+                    renderConcerts(fallbackConcerts);
+                });
+        })();
+    </script>
 </body>
 </html>
