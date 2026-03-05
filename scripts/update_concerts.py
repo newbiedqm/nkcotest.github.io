@@ -55,6 +55,13 @@ def normalize_nkco_year_spacing(text: str) -> str:
     return re.sub(r"(?i)\bNKCO\s*(\d{4})", r"NKCO \1", text)
 
 
+def normalize_location_display(value: str) -> str:
+    cleaned = re.sub(r"\s+", "", value or "")
+    if "田家炳音乐厅" in cleaned:
+        return "南开大学八里台校区田家炳音乐厅"
+    return value or "详见公众号推文"
+
+
 def fetch_url(url: str) -> bytes:
     req = Request(url, headers={"User-Agent": WECHAT_MOBILE_UA})
     with urlopen(req, timeout=20) as resp:
@@ -92,7 +99,7 @@ def load_existing_entries(path: Path) -> dict[str, ConcertEntry]:
             publish_ts=publish_ts,
             event_ts=event_ts,
             date=str(row.get("date", "")),
-            location=str(row.get("location", "详见公众号推文")) or "详见公众号推文",
+            location=normalize_location_display(str(row.get("location", "详见公众号推文"))),
             cover_url=str(row.get("cover_url", "")),
             image=str(row.get("image", "assets/images/640.jpg")) or "assets/images/640.jpg",
         )
@@ -289,13 +296,7 @@ def extract_location(content: str) -> str:
                 return "天津大学北洋园校区茅以升报告厅"
             return "茅以升报告厅"
         if "田家炳音乐厅" in compact:
-            if "八里台" in compact:
-                return "南开大学八里台校区田家炳音乐厅"
-            if "津南" in compact:
-                return "南开大学津南校区田家炳音乐厅"
-            if "南开大学" in compact or "南开" in compact:
-                return "南开大学田家炳音乐厅"
-            return "田家炳音乐厅"
+            return "南开大学八里台校区田家炳音乐厅"
         return compact or fallback
 
     normalized = re.sub(r"\s+", " ", content).strip()
@@ -390,6 +391,7 @@ def parse_article(link: LinkItem, image_dir: Path) -> ConcertEntry:
     date_text, event_ts = extract_event_datetime(content_plain, publish_dt)
     location = extract_location(content_plain)
     location = LOCATION_OVERRIDES.get(link.slug, location)
+    location = normalize_location_display(location)
     name = normalize_name(title)
     image_path = download_cover(cover_url, link.slug, image_dir)
 

@@ -79,7 +79,7 @@
         .hero-content {
             position: relative;
             z-index: 2;
-            transform: translateY(-12vh);
+            transform: translateY(-14vh);
         }
         .hero h1 {
             font-size: 4rem;
@@ -125,16 +125,85 @@
             gap: 30px;
         }
         @media (max-width: 980px) {
+            header {
+                padding: 14px 0;
+            }
+            nav ul {
+                margin: 0;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px 18px;
+            }
+            nav ul li {
+                display: block;
+                margin: 0;
+            }
+            nav ul li a {
+                font-size: 16px;
+            }
+            section {
+                padding: 68px 0;
+            }
+            h2 {
+                font-size: 2.1rem;
+                margin-bottom: 28px;
+            }
+            .about-content {
+                flex-direction: column;
+                gap: 24px;
+                align-items: stretch;
+            }
+            .about-text {
+                padding-right: 0;
+            }
+            .about-image img {
+                width: 100%;
+            }
             .concert-list {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
         @media (max-width: 680px) {
+            .container {
+                padding: 0 14px;
+            }
+            .hero {
+                height: 100svh;
+                min-height: 560px;
+                background-position: center 34%;
+            }
             .concert-list {
                 grid-template-columns: 1fr;
+                gap: 18px;
             }
             .hero-content {
-                transform: translateY(-8vh);
+                transform: translateY(-9vh);
+            }
+            .hero h1 {
+                font-size: clamp(2rem, 10vw, 2.6rem);
+                line-height: 1.2;
+            }
+            .concert-info {
+                padding: 16px;
+            }
+        }
+        @media (max-width: 980px) and (orientation: landscape) {
+            .hero {
+                height: 100svh;
+                min-height: 420px;
+                background-position: center 30%;
+            }
+            .hero-content {
+                transform: translateY(-7vh);
+            }
+            .hero h1 {
+                font-size: clamp(2.1rem, 5.5vw, 3.1rem);
+            }
+        }
+        @media (max-width: 680px) and (orientation: portrait) {
+            .hero-content {
+                transform: translateY(-12vh);
             }
         }
         .concert-item {
@@ -243,7 +312,7 @@
                 {
                     name: "三周年音乐会",
                     date: "2024年6月2日",
-                    location: "南开大学 田家炳音乐厅",
+                    location: "南开大学八里台校区田家炳音乐厅",
                     image: "assets/images/641.jpg",
                     source_url: "https://mp.weixin.qq.com/s/z7CpjcfgzncmD0q-wDyJBw"
                 },
