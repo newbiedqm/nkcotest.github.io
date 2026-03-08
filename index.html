@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preload" as="image" media="(min-width: 681px)" href="assets/images/hero/hero-stage-desktop.webp?v=20260307">
+    <link rel="preload" as="image" media="(max-width: 680px)" href="assets/images/hero/hero-stage-mobile.webp?v=20260307">
     <title>南开大学室内乐团（NKCO）</title>
     <style>
         body, html {
@@ -47,7 +49,7 @@
         .hero {
             background:
                 linear-gradient(180deg, rgba(18, 22, 30, 0.35), rgba(18, 22, 30, 0.5)),
-                url('assets/images/hero/hero-stage.jpg?v=img2025') no-repeat center 38% / cover;
+                url('assets/images/hero/hero-stage-blur.jpg?v=20260307') no-repeat center 38% / cover;
             height: 100vh;
             display: flex;
             align-items: center;
@@ -55,6 +57,24 @@
             text-align: center;
             color: #fff;
             position: relative;
+        }
+        .hero-hires {
+            position: absolute;
+            inset: 0;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center 38%;
+            opacity: 0;
+            clip-path: inset(0 0 100% 0);
+            transition:
+                clip-path 5s cubic-bezier(0.22, 0.72, 0.24, 0.99),
+                opacity 5s ease;
+            z-index: 0;
+            will-change: clip-path, opacity;
+        }
+        .hero.is-ready .hero-hires {
+            opacity: 1;
+            clip-path: inset(0 0 0 0);
         }
         .hero::before {
             content: '';
@@ -79,7 +99,7 @@
         .hero-content {
             position: relative;
             z-index: 2;
-            transform: translateY(-14vh);
+            transform: translateY(-15vh);
         }
         .hero h1 {
             font-size: 4rem;
@@ -173,12 +193,15 @@
                 min-height: 560px;
                 background-position: center 34%;
             }
+            .hero-hires {
+                background-position: center 34%;
+            }
             .concert-list {
                 grid-template-columns: 1fr;
                 gap: 18px;
             }
             .hero-content {
-                transform: translateY(-9vh);
+                transform: translateY(-10vh);
             }
             .hero h1 {
                 font-size: clamp(2rem, 10vw, 2.6rem);
@@ -194,8 +217,11 @@
                 min-height: 420px;
                 background-position: center 30%;
             }
+            .hero-hires {
+                background-position: center 30%;
+            }
             .hero-content {
-                transform: translateY(-7vh);
+                transform: translateY(-8vh);
             }
             .hero h1 {
                 font-size: clamp(2.1rem, 5.5vw, 3.1rem);
@@ -203,7 +229,12 @@
         }
         @media (max-width: 680px) and (orientation: portrait) {
             .hero-content {
-                transform: translateY(-12vh);
+                transform: translateY(-13vh);
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .hero-hires {
+                transition: none;
             }
         }
         .concert-item {
@@ -262,6 +293,12 @@
     </header>
 
     <section id="home" class="hero">
+        <div
+            class="hero-hires"
+            aria-hidden="true"
+            data-bg-desktop="assets/images/hero/hero-stage-desktop.webp?v=20260307"
+            data-bg-mobile="assets/images/hero/hero-stage-mobile.webp?v=20260307"
+        ></div>
         <div class="hero-content">
             <h1>南开大学室内乐团</h1>
         </div>
@@ -308,9 +345,86 @@
     </footer>
     <script>
         (function () {
+            var hero = document.querySelector(".hero");
+            var heroLayer = document.querySelector(".hero-hires");
+            if (!hero || !heroLayer) {
+                return;
+            }
+
+            var mediaQuery = window.matchMedia("(max-width: 680px)");
+            var overlayGradient = "linear-gradient(180deg, rgba(18, 22, 30, 0.35), rgba(18, 22, 30, 0.5))";
+
+            function currentHeroSrc() {
+                return mediaQuery.matches
+                    ? heroLayer.getAttribute("data-bg-mobile")
+                    : heroLayer.getAttribute("data-bg-desktop");
+            }
+
+            function loadHero() {
+                var src = currentHeroSrc();
+                if (!src) {
+                    return;
+                }
+                if (heroLayer.dataset.loadedSrc === src) {
+                    hero.classList.add("is-ready");
+                    return;
+                }
+
+                hero.classList.remove("is-ready");
+                var img = new Image();
+                img.decoding = "async";
+                img.onload = function () {
+                    heroLayer.style.backgroundImage = overlayGradient + ", url('" + src + "')";
+                    heroLayer.dataset.loadedSrc = src;
+                    hero.classList.add("is-ready");
+                };
+                img.src = src;
+                if (img.complete) {
+                    img.onload();
+                }
+            }
+
+            loadHero();
+            if (typeof mediaQuery.addEventListener === "function") {
+                mediaQuery.addEventListener("change", loadHero);
+            } else if (typeof mediaQuery.addListener === "function") {
+                mediaQuery.addListener(loadHero);
+            }
+        })();
+    </script>
+    <script>
+        (function () {
             var fallbackConcerts = [
                 {
-                    name: "三周年音乐会",
+                    name: "NKCO 2026新年音乐会",
+                    date: "2025年12月21日",
+                    location: "南开大学八里台校区田家炳音乐厅",
+                    image: "assets/images/concerts/abf6a5b73e09.jpg",
+                    source_url: "https://mp.weixin.qq.com/s/mBpTmtWH5ZOaa3FQC6VFEg"
+                },
+                {
+                    name: "“南以离开”主题 NKCO × PYSO 联合音乐会",
+                    date: "2025年6月3日",
+                    location: "南开大学八里台校区田家炳音乐厅",
+                    image: "assets/images/concerts/6b7aa5a13c1b.jpg",
+                    source_url: "https://mp.weixin.qq.com/s/Yr6j0108L9VUSEPpsEdbhg"
+                },
+                {
+                    name: "NKCO 2025夏季音乐会",
+                    date: "2025年5月25日",
+                    location: "南开大学八里台校区田家炳音乐厅",
+                    image: "assets/images/concerts/1a8b770aed95.jpg",
+                    source_url: "https://mp.weixin.qq.com/s/TPk7JWhseFu493hfohNUcQ"
+                },
+                {
+                    name: "NKCO 2025新年音乐会",
+                    date: "2024年12月22日",
+                    location: "南开大学八里台校区田家炳音乐厅",
+                    image: "assets/images/concerts/94434c6c70b5.jpg",
+                    source_url: "https://mp.weixin.qq.com/s/RGnN6EseuWJyLoMVNW1XJA"
+                },
+                {
+                    name: "NKCO三周年专场音乐会",
                     date: "2024年6月2日",
                     location: "南开大学八里台校区田家炳音乐厅",
                     image: "assets/images/641.jpg",
@@ -322,6 +436,27 @@
                     location: "天津大学北洋园校区 国家大型地震工程模拟研究设施仿真中心 茅以升报告厅",
                     image: "assets/images/640.jpg",
                     source_url: "https://mp.weixin.qq.com/s/lsWojZHqV-6LS1XUGPB9aQ"
+                },
+                {
+                    name: "NKCO 2024新年音乐会",
+                    date: "2023年12月17日",
+                    location: "南开大学八里台校区田家炳音乐厅",
+                    image: "assets/images/concerts/2044a436427f.jpg",
+                    source_url: "https://mp.weixin.qq.com/s/5ALOwxpQEQ63tGAFqjplCg"
+                },
+                {
+                    name: "NKCO两周年专场音乐会",
+                    date: "2023年5月28日",
+                    location: "南开大学八里台校区田家炳音乐厅",
+                    image: "assets/images/concerts/62063840b59e.png",
+                    source_url: "https://mp.weixin.qq.com/s/4YITe47n9BvEwvIhRdnM-g"
+                },
+                {
+                    name: "南开大学室内乐团“送毕业生”专场音乐会",
+                    date: "2022年6月19日",
+                    location: "南开大学八里台校区田家炳音乐厅",
+                    image: "assets/images/concerts/4b4b158e85a2.jpg",
+                    source_url: "https://mp.weixin.qq.com/s/S8512tLGiQo-SB0be4QA_Q"
                 }
             ];
 
@@ -371,7 +506,7 @@
                 });
             }
 
-            fetch("data/concerts.json", { cache: "no-store" })
+            fetch("data/concerts.json?v=20260308", { cache: "no-store" })
                 .then(function (response) {
                     if (!response.ok) {
                         throw new Error("Failed to load concerts.json");
